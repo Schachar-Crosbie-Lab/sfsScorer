@@ -2,5 +2,17 @@
 
 ## All functions
 
-- [`hello()`](https://jclutton.github.io/sfsScorer/reference/hello.md) :
-  Hello, World!
+- [`build_summary()`](https://jclutton.github.io/sfsScorer/reference/build_summary.md)
+  : Build Totals and Prorated Totals for Full Test and Subdomains
+- [`clean_file()`](https://jclutton.github.io/sfsScorer/reference/clean_file.md)
+  : Clean File
+- [`get_swan_tscores()`](https://jclutton.github.io/sfsScorer/reference/get_swan_tscores.md)
+  : Run analysis on SWAN raw values to return t-scores
+- [`mkpro()`](https://jclutton.github.io/sfsScorer/reference/mkpro.md) :
+  Make Prorated Scores
+- [`mkvars()`](https://jclutton.github.io/sfsScorer/reference/mkvars.md)
+  : Make Variables - Subset SWAN to subdomains.
+- [`run_model()`](https://jclutton.github.io/sfsScorer/reference/run_model.md)
+  : Runs the model that adjusts for time and create t-scores
+- [`run_model_old()`](https://jclutton.github.io/sfsScorer/reference/run_model_old.md)
+  : An old version of the model, initially written in Annie's language
