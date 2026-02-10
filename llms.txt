@@ -1,0 +1,21 @@
+# sfsScorer
+
+sfsScorer is in development.
+
+## Installation
+
+You can install the development version of sfsScorer from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("jclutton/sfsScorer")
+```
+
+# Package index
+
+## All functions
+
+- [`hello()`](https://jclutton.github.io/sfsScorer/reference/hello.md) :
+  Hello, World!
+
