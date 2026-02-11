@@ -1,12 +1,12 @@
 # Clean File
 
-This function checks that the uploaded SWAN score file does not have any
-issues with the SWAN values or the gender and age coding
+This function runs checks to be sure that the file and non-test specific
+data are formatted correctly
 
 ## Usage
 
 ``` r
-clean_file(file_path = NULL)
+clean_file(file_path = NULL, test = NULL)
 ```
 
 ## Arguments
@@ -14,6 +14,10 @@ clean_file(file_path = NULL)
 - file_path:
 
   Should be a path on your computer to the SWAN scores
+
+- test:
+
+  Which questionnaire are we running
 
 ## Value
 
