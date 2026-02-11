@@ -1,8 +1,8 @@
 # Run analysis on TOCS raw values to return t-scores
 
 get_tocs_tscores() returns gendered and non-gendered t-scores for the
-\[Toronto Obsessive-Compulsive Scale (TOCS)
-assessment\](https://pubmed.ncbi.nlm.nih.gov/27015722/)
+[Toronto Obsessive-Compulsive Scale (TOCS)
+assessment](https://pubmed.ncbi.nlm.nih.gov/27015722/)
 
 ## Usage
 
@@ -27,7 +27,7 @@ get_tocs_tscores(file = NULL, output_folder = here::here())
   2.  Specify a pathway - This will output a csv file to the specified
       pathway
 
-  3.  Set to \`NULL\` - This will not output a csv file
+  3.  Set to `NULL` - This will not output a csv file
 
 ## Value
 
