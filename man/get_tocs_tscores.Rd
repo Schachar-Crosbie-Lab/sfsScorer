@@ -13,12 +13,12 @@ get_tocs_tscores(file = NULL, output_folder = here::here())
 \enumerate{
 \item Leave blank - This will output a csv file with the t-scores to your working directory
 \item Specify a pathway - This will output a csv file to the specified pathway
-\item Set to `NULL` - This will not output a csv file
+\item Set to \code{NULL} - This will not output a csv file
 }}
 }
 \value{
 table with t-scores attached to raw swan values
 }
 \description{
-get_tocs_tscores() returns gendered and non-gendered t-scores for the [Toronto Obsessive-Compulsive Scale (TOCS) assessment](https://pubmed.ncbi.nlm.nih.gov/27015722/)
+get_tocs_tscores() returns gendered and non-gendered t-scores for the \href{https://pubmed.ncbi.nlm.nih.gov/27015722/}{Toronto Obsessive-Compulsive Scale (TOCS) assessment}
 }
