@@ -18,8 +18,7 @@ questionnaires.
 
 ## Spit for Science
 
-<img src="Spit-for-Science-Infographic-2.jpg" style="width:8cm"
-data-fig-align="center" />
+<img src="man/figures/Spit-for-Science-Infographic-2.jpg" width="40%" />
 
 Spit for Science (SFS) was a large population-based study examining
 mental health in 40,000 children and youth. The study is one of the
