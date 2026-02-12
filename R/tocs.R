@@ -201,7 +201,7 @@ run_model_tocs <- function(df = NULL) {
                                             .data$female == 1  & .data$youth == 0 ~ 0.9461211,
                                             .data$female ==1  & .data$youth ==1 ~ 1.0067446)) |>
     dplyr::mutate(tocs_gender_tscores = dplyr::case_when(.data$age18 < 12 & .data$p_respondent == 0 ~ NA,
-                                                             T ~ (((.data$tocs_pro - .data$tocs_gender_pred) / .data$tocs_gender_sd_pred) +.data$ res_adj) / (.data$sd_adj) * 10 + 50))
+                                                             T ~ round((((.data$tocs_pro - .data$tocs_gender_pred) / .data$tocs_gender_sd_pred) +.data$ res_adj) / (.data$sd_adj) * 10 + 50, digits = 5)))
 
   #### Full Test Across Gender
   df_mod <- df_mod |>
@@ -225,7 +225,7 @@ run_model_tocs <- function(df = NULL) {
     dplyr::mutate(sd_adj = dplyr::case_when(.data$youth == 0  ~ 0.9701794,
                                             .data$youth == 1  ~ 0.9991996)) |>
     dplyr::mutate(tocs_tscores = dplyr::case_when(.data$age18 < 12 & .data$p_respondent == 0 ~ NA,
-                                                      T ~ (((.data$tocs_pro - .data$tocs_pred) / .data$tocs_sd_pred) + .data$res_adj) / (.data$sd_adj) * 10 + 50))
+                                                      T ~ round((((.data$tocs_pro - .data$tocs_pred) / .data$tocs_sd_pred) + .data$res_adj) / (.data$sd_adj) * 10 + 50, digits = 5)))
 
 
   #### Remove extra columns ####
