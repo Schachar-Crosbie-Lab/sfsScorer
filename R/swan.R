@@ -50,7 +50,7 @@ get_swan_tscores <- function(file = NULL, output_folder = here::here()) {
   }
 
   # Run QC checks on data
-  check <- clean_file(file)
+  check <- clean_file(file, test = 'swan')
 
   # Summarize Scores
   summary <- build_summary_swan(check)

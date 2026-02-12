@@ -62,11 +62,11 @@ clean_file <- function(file_path = NULL, test = NULL) {
     required_test_cols <- c('swan1','swan2','swan3','swan4','swan5','swan6','swan7','swan8','swan9',
                             'swan10','swan11','swan12','swan13','swan14','swan15','swan16','swan17','swan18')
     # swan only allows values -3 to 3
-    value_range <- seq(-3, 3, 1)
+    value_range <- c(seq(-3, 3, 1), NA)
   } else if(test == 'tocs'){
     required_test_cols <- paste0('tocs',seq(1,24,1))
 
-    value_range <- seq(-3, 3, 1)
+    value_range <- c(seq(-3, 3, 1), NA)
   }
 
   required_dem_cols <- c('age','gender','p_respondent')

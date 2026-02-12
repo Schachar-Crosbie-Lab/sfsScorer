@@ -4,7 +4,7 @@
 \alias{get_tocs_tscores}
 \title{Run analysis on TOCS raw values to return t-scores}
 \usage{
-get_tocs_tscores(file = NULL, output_folder = here::here())
+get_tocs_tscores(file = NULL, output_folder = here::here(), max_missing = 0)
 }
 \arguments{
 \item{file}{Pathway to formatted raw scores. If left blank file finder will pop up to allow you to select the file.}
@@ -15,10 +15,15 @@ get_tocs_tscores(file = NULL, output_folder = here::here())
 \item Specify a pathway - This will output a csv file to the specified pathway
 \item Set to \code{NULL} - This will not output a csv file
 }}
+
+\item{max_missing}{By default, 0 items are allowed to be missing on the TOCS. Any questionnaire with 1 or more missing, will not be scored. If you'd like to adjust this number, change the max_missing value.
+This will use a prorated score to generate t-scores. Please be aware that missingness can induce issues when analyzing.}
 }
 \value{
 table with t-scores attached to raw swan values
 }
 \description{
 get_tocs_tscores() returns gendered and non-gendered t-scores for the \href{https://pubmed.ncbi.nlm.nih.gov/27015722/}{Toronto Obsessive-Compulsive Scale (TOCS) assessment}
+
+\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }

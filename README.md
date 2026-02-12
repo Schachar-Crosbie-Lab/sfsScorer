@@ -8,6 +8,8 @@
 [![R-CMD-check](https://github.com/jclutton/sfsScorer/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/jclutton/sfsScorer/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/jclutton/sfsScorer/graph/badge.svg)](https://app.codecov.io/gh/jclutton/sfsScorer)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 <!-- badges: end -->
 
 sfsScorer is in development.
