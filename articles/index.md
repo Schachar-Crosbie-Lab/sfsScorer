@@ -3,4 +3,4 @@
 ### All vignettes
 
 - [Score a SWAN
-  Questionnaire](https://jclutton.github.io/sfsScorer/articles/Score%20a%20SWAN%20Questionnaire.md):
+  Questionnaire](https://jclutton.github.io/sfsScorer/articles/score_a_swan_questionnaire.md):

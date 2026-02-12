@@ -5,7 +5,7 @@ questionnaires.
 
 ## Spit for Science
 
-![](Spit-for-Science-Infographic-2.jpg)
+![](reference/figures/Spit-for-Science-Infographic-2.jpg)
 
 Spit for Science (SFS) was a large population-based study examining
 mental health in 40,000 children and youth. The study is one of the
@@ -75,4 +75,4 @@ Click on the questionnaire link for instructions.
 ### All vignettes
 
 - [Score a SWAN
-  Questionnaire](https://jclutton.github.io/sfsScorer/articles/Score%20a%20SWAN%20Questionnaire.md):
+  Questionnaire](https://jclutton.github.io/sfsScorer/articles/score_a_swan_questionnaire.md):
