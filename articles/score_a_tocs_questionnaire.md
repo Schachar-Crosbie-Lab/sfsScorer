@@ -1,12 +1,17 @@
-# Score a SWAN Questionnaire
+# Score a TOCS Questionnaire
 
-    #> sfsScorer has been loaded
+The Toronto Obsessive-Compulsive Scale 2 (TOCS-2) is a validated
+instrument for measuring Obsessive-Compulsive (OCD) traits. This article
+shows you how to score your TOCS-2 tests.
 
-The Strengths and Weaknesses of ADHD Symptoms and Normal Behavior Rating
-Scale (SWAN) is a validated instrument for measuring
-attention-deficit/hyperactivity disorder (ADHD) traits ([Burton et al.,
-2018](https://doi.org/10.1101/248484)). The sfsScorer package provides
-an easy way to automatically score your SWAN tests.
+Let’s start by loading sfsScorer
+
+``` r
+library(sfsScorer)
+#> sfsScorer has been loaded
+```
+
+## `get_swan_tscores()`
 
 ## Notes about the data
 
