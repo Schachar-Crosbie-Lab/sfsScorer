@@ -40,10 +40,10 @@ Click on the questionnaire link for instructions.
 
 - [The Strengths and Weaknesses of ADHD Symptoms and Normal Behavior
   Rating Scale
-  (SWAN)](https://Schachar-Crosbie-Lab.github.io/sfsScorer/articles/Score%20a%20SWAN%20Questionnaire.html)
+  (SWAN)](https://schachar-crosbie-lab.github.io/sfsScorer/articles/score_a_swan_questionnaire.html)
 
 - [Toronto Obsessive-Compulsive Scale 2
-  (TOCS-2)](https://Schachar-Crosbie-Lab.github.io/sfsScorer/articles/Score%20a%20TOCS-2%20Questionnaire.html)
+  (TOCS-2)](https://schachar-crosbie-lab.github.io/sfsScorer/articles/score_a_tocs_questionnaire.html)
 
 # Package index
 
