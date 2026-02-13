@@ -9,7 +9,7 @@ build_summary_tocs(df = NULL, max_missing = NULL)
 \arguments{
 \item{df}{should be a data.frame from \code{\link[=clean_file]{clean_file()}}}
 
-\item{max_missing}{max_missing is passed from the \code{\link[=get_tocs_tscores]{get_tocs_tscores()}} function. By default, the tocs allows 0 missing items.}
+\item{max_missing}{max_missing is passed from the \code{\link[=score_tocs2]{score_tocs2()}} function. By default, the tocs allows 0 missing items.}
 }
 \value{
 A data frame with all of the totals columns

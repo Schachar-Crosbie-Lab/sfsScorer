@@ -4,10 +4,10 @@
 \alias{clean_file}
 \title{Clean File}
 \usage{
-clean_file(file_path = NULL, test = NULL)
+clean_file(df = NULL, test = NULL)
 }
 \arguments{
-\item{file_path}{Should be a path on your computer to the SWAN scores}
+\item{df}{The df function allows you to point to a dataframe as opposed to a file}
 
 \item{test}{Which questionnaire are we running}
 }

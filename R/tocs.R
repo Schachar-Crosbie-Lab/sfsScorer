@@ -14,15 +14,20 @@
 #     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#' @name get_tocs_tscores
+#' @name score_tocs2
 #'
 #' @title Run analysis on TOCS raw values to return t-scores
 #'
-#' @description get_tocs_tscores() returns gendered and non-gendered t-scores for the [Toronto Obsessive-Compulsive Scale (TOCS) assessment](https://pubmed.ncbi.nlm.nih.gov/27015722/)
+#' @description score_tocs2() returns gendered and non-gendered t-scores for the [Toronto Obsessive-Compulsive Scale (TOCS) assessment](https://pubmed.ncbi.nlm.nih.gov/27015722/)
 #'
 #' `r lifecycle::badge('experimental')`
 #'
-#' @param file Pathway to formatted raw scores. If left blank file finder will pop up to allow you to select the file.
+#' @param df If you already have the TOCS-2 data in your R environment, pass the dataframe to this parameter
+#' @param file If you prefer scoring a spreadsheet...
+#' \enumerate{
+#'  \item TRUE - This will pop-up a finder to allow you select a file
+#'  \item Specify a pathway
+#'  }
 #' @param max_missing By default, 0 items are allowed to be missing on the TOCS. Any questionnaire with 1 or more missing, will not be scored. If you'd like to adjust this number, change the max_missing value.
 #'  This will use a prorated score to generate t-scores. Please be aware that missingness can induce issues when analyzing.
 #' @param output_folder Output file pathway
@@ -50,15 +55,29 @@
 #'
 #'
 
-get_tocs_tscores <- function(file = NULL, output_folder = here::here(),
+score_tocs2 <- function(df = NULL, file = FALSE, output_folder = NULL,
                              max_missing = 0) {
 
-  if(is.null(file)){
-    file <- file.choose()
+  if(is.null(df) | is.character(df) | is.logical(df)){
+
+    # Import df
+    if(is.character(file)){
+
+      #Check to make sure the filetype is correct
+      if(!rio::get_ext(file) %in% c('csv','xlsx','xls')){
+        stop(paste0(basename(file),'s filetype is not usable. It must be a .csv, .xlsx, or .xls filetype. Please correct the filetype before continuing'))
+      }
+
+      df <- rio::import(file)
+    } else if(file == TRUE | is.logical(file)){
+      cli::cli_alert_info('No file pathway was found. Please use the finder to select the file you would like to score.')
+      file <- file.choose()
+    }
   }
 
+
   # Run QC checks on data
-  check <- clean_file(file, test = 'tocs')
+  check <- clean_file(df, test = 'tocs')
 
   # Summarize Scores
   summary <- build_summary_tocs(check, max_missing = max_missing)
@@ -113,7 +132,7 @@ get_tocs_tscores <- function(file = NULL, output_folder = here::here(),
 #' @importFrom rlang .data
 #'
 #' @param df should be a data.frame from [clean_file()]
-#' @param max_missing max_missing is passed from the [get_tocs_tscores()] function. By default, the tocs allows 0 missing items.
+#' @param max_missing max_missing is passed from the [score_tocs2()] function. By default, the tocs allows 0 missing items.
 #'
 #' @returns A data frame with all of the totals columns
 #'

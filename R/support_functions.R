@@ -30,7 +30,7 @@ globalVariables(c())
 #'
 #' @description This function runs checks to be sure that the file and non-test specific data are formatted correctly
 #'
-#' @param file_path Should be a path on your computer to the SWAN scores
+#' @param df The df function allows you to point to a dataframe as opposed to a file
 #' @param test Which questionnaire are we running
 #'
 #' @importFrom rio import
@@ -46,15 +46,8 @@ globalVariables(c())
 #' @returns A clean data frame ready for t-scores
 #'
 #'
-clean_file <- function(file_path = NULL, test = NULL) {
+clean_file <- function(df = NULL, test = NULL) {
 
-  #Check to make sure the filetype is correct
-  if(!rio::get_ext(file_path) %in% c('csv','xlsx','xls')){
-    stop(paste0(basename(file_path),'s filetype is not usable. It must be a .csv, .xlsx, or .xls filetype. Please correct the filetype before continuing'))
-  }
-
-  # Import df
-  df <- rio::import(file_path)
 
   # Check for Required Questions
   if(test == 'swan'){

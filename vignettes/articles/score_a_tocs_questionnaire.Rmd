@@ -19,7 +19,41 @@ Let's start by loading sfsScorer
 library(sfsScorer)
 ```
 
-## `get_swan_tscores()`
+## At a glance
+
+The code below shows how to score a TOCS-2 questionnaire using the `score_tocs2()` function.
+
+```{r}
+# This is used to keep random data consistent
+set.seed(1)
+
+# Number of random participants to generate
+pt_num <- 5
+
+# Generate all of the tocs2 data. Variables should be named tocs1 to tocs24, corresponding to each question on the tocs2.
+tocs2_sample <- as.data.frame(matrix(round(runif(n=pt_num*24, min=-3, max=3), 0), nrow=pt_num)) |> 
+  setNames(c(paste0('tocs',seq(from = 1, to = 24, by = 1))))
+  
+
+# Import your data. In this example, we will use random data.
+random_data <- data.frame(age = sample(5:18, size = pt_num), # age must be between 5 and 18 
+                          gender = sample(1:2, size = pt_num, replace = TRUE)) |>  # gender where 1 = boy and 2 = girl. 
+                          #Both gendered and non-gendered t-scores are generated. If a participant is gender-diverse, use the non-gendered t-scores.
+  mutate(p_respondent = 1) |>  # p_respondent stands for parent respondent. 1 for yes, 0 for no
+  bind_cols(tocs2_sample)
+
+# Here's how we expect the data to be formatted
+head(random_data, 1)
+
+# Score the tocs2!
+# Read below for more options when scoring
+scores <- score_tocs2(df = random_data)
+
+```
+
+
+
+
 
 ## Notes about the data
 
