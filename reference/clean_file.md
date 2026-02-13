@@ -6,14 +6,15 @@ data are formatted correctly
 ## Usage
 
 ``` r
-clean_file(file_path = NULL, test = NULL)
+clean_file(df = NULL, test = NULL)
 ```
 
 ## Arguments
 
-- file_path:
+- df:
 
-  Should be a path on your computer to the SWAN scores
+  The df function allows you to point to a dataframe as opposed to a
+  file
 
 - test:
 

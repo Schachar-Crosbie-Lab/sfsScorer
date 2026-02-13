@@ -23,7 +23,7 @@ build_summary_tocs(df = NULL, max_missing = NULL)
 - max_missing:
 
   max_missing is passed from the
-  [`get_tocs_tscores()`](https://Schachar-Crosbie-Lab.github.io/sfsScorer/reference/get_tocs_tscores.md)
+  [`score_tocs2()`](https://Schachar-Crosbie-Lab.github.io/sfsScorer/reference/score_tocs2.md)
   function. By default, the tocs allows 0 missing items.
 
 ## Value

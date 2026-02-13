@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Score a TOCS Questionnaire • sfsScorer</title>
+<title>Score a TOCS-2 Questionnaire • sfsScorer</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Score a TOCS Questionnaire">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Score a TOCS-2 Questionnaire">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -34,7 +34,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><a class="dropdown-item" href="../articles/score_a_swan_questionnaire.html">Score a SWAN Questionnaire</a></li>
-    <li><a class="dropdown-item" href="../articles/score_a_tocs_questionnaire.html">Score a TOCS Questionnaire</a></li>
+    <li><a class="dropdown-item" href="../articles/score_a_tocs_questionnaire.html">Score a TOCS-2 Questionnaire</a></li>
   </ul>
 </li>
       </ul>
@@ -56,7 +56,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>Score a TOCS Questionnaire</h1>
+      <h1>Score a TOCS-2 Questionnaire</h1>
             
       
       <small class="dont-index">Source: <a href="https://github.com/jclutton/sfsScorer/blob/master/vignettes/articles/score_a_tocs_questionnaire.Rmd" class="external-link"><code>vignettes/articles/score_a_tocs_questionnaire.Rmd</code></a></small>
@@ -73,9 +73,51 @@ shows you how to score your TOCS-2 tests.</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Schachar-Crosbie-Lab/sfsScorer" class="external-link">sfsScorer</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; sfsScorer has been loaded</span></span></code></pre></div>
 <div class="section level2">
-<h2 id="get_swan_tscores">
-<code>get_swan_tscores()</code><a class="anchor" aria-label="anchor" href="#get_swan_tscores"></a>
+<h2 id="at-a-glance">At a glance<a class="anchor" aria-label="anchor" href="#at-a-glance"></a>
 </h2>
+<p>The code below shows how to score a TOCS-2 questionnaire using the
+<code><a href="../reference/score_tocs2.html">score_tocs2()</a></code> function.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># This is used to keep random data consistent</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Number of random participants to generate</span></span>
+<span><span class="va">pt_num</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
+<span></span>
+<span><span class="co"># Generate all of the tocs2 data. Variables should be named tocs1 to tocs24, corresponding to each question on the tocs2.</span></span>
+<span><span class="va">tocs2_sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span>n<span class="op">=</span><span class="va">pt_num</span><span class="op">*</span><span class="fl">24</span>, min<span class="op">=</span><span class="op">-</span><span class="fl">3</span>, max<span class="op">=</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span>, nrow<span class="op">=</span><span class="va">pt_num</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'tocs'</span>,<span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">24</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span>  </span>
+<span></span>
+<span><span class="co"># Import your data. In this example, we will use random data.</span></span>
+<span><span class="va">random_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">18</span>, size <span class="op">=</span> <span class="va">pt_num</span><span class="op">)</span>, <span class="co"># age must be between 5 and 18 </span></span>
+<span>                          gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, size <span class="op">=</span> <span class="va">pt_num</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># gender where 1 = boy and 2 = girl. </span></span>
+<span>                          <span class="co">#Both gendered and non-gendered t-scores are generated. If a participant is gender-diverse, use the non-gendered t-scores.</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>p_respondent <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># p_respondent stands for parent respondent. 1 for yes, 0 for no</span></span>
+<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span><span class="va">tocs2_sample</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Here's how we expect the data to be formatted</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">random_data</span>, <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   age gender p_respondent tocs1 tocs2 tocs3 tocs4 tocs5 tocs6 tocs7 tocs8 tocs9</span></span>
+<span><span class="co">#&gt; 1  14      2            1    -1     2    -2     0     3    -1     0     1     2</span></span>
+<span><span class="co">#&gt;   tocs10 tocs11 tocs12 tocs13 tocs14 tocs15 tocs16 tocs17 tocs18 tocs19 tocs20</span></span>
+<span><span class="co">#&gt; 1      2      0     -2      2     -1     -1      2      0     -2     -2      2</span></span>
+<span><span class="co">#&gt;   tocs21 tocs22 tocs23 tocs24</span></span>
+<span><span class="co">#&gt; 1      1     -2      3     -3</span></span>
+<span></span>
+<span><span class="co"># Score the tocs2!</span></span>
+<span><span class="co"># Read below for more options when scoring</span></span>
+<span><span class="va">scores</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/score_tocs2.html">score_tocs2</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">random_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The model scored 5 observations.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 6</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Groups:   gender, youth [4]</span></span></span>
+<span><span class="co">#&gt;   gender youth p_respondent     n  mean    sd</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>      1     0            1     2  57.1  2.83</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>      1     1            1     1  54.8 <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>      2     0            1     1  60.4 <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>      2     1            1     1  56.2 <span style="color: #BB0000;">NA</span></span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="notes-about-the-data">Notes about the data<a class="anchor" aria-label="anchor" href="#notes-about-the-data"></a>
@@ -269,7 +311,7 @@ csv file with the t-scores will be saved to your working directory</p>
 <p>If you receive an error, please correct the issue in your file, save
 your file, then run the <code><a href="../reference/get_swan_tscores.html">get_swan_tscores()</a></code> function
 again.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Schachar-Crosbie-Lab/sfsScorer" class="external-link">sfsScorer</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># The get_swan_tscores checks that your data are formatted correctly and generates the t-scores</span></span>
@@ -284,16 +326,16 @@ again.</p>
 <li><p>where to export the csv file with t-scores</p></li>
 <li><p>not to export the csv file</p></li>
 </ol>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(sfsScorer)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co"># Example of how to specify the input file</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>swan_tscores <span class="ot">&lt;-</span> <span class="fu">get_swan_tscores</span>(<span class="at">file =</span> <span class="fu">here</span>(<span class="st">"test_scores.csv"</span>))</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co"># Example of how to specify an output folder</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>swan_tscores <span class="ot">&lt;-</span> <span class="fu">get_swan_tscores</span>(<span class="at">output_folder =</span> <span class="fu">file.path</span>(<span class="st">"C:"</span>,<span class="st">"Users"</span>,...<span class="st">"yourpath"</span>))</span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co"># Example of how to not export a csv file</span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>swan_tscores <span class="ot">&lt;-</span> <span class="fu">get_swan_tscores</span>(<span class="at">output_folder =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">library</span>(sfsScorer)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="co"># Example of how to specify the input file</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>swan_tscores <span class="ot">&lt;-</span> <span class="fu">get_swan_tscores</span>(<span class="at">file =</span> <span class="fu">here</span>(<span class="st">"test_scores.csv"</span>))</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co"># Example of how to specify an output folder</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>swan_tscores <span class="ot">&lt;-</span> <span class="fu">get_swan_tscores</span>(<span class="at">output_folder =</span> <span class="fu">file.path</span>(<span class="st">"C:"</span>,<span class="st">"Users"</span>,...<span class="st">"yourpath"</span>))</span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co"># Example of how to not export a csv file</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>swan_tscores <span class="ot">&lt;-</span> <span class="fu">get_swan_tscores</span>(<span class="at">output_folder =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 </div>
 </div>
 <div class="section level2">

@@ -10,9 +10,6 @@
   : Clean File
 - [`get_swan_tscores()`](https://Schachar-Crosbie-Lab.github.io/sfsScorer/reference/get_swan_tscores.md)
   : Run analysis on SWAN raw values to return t-scores
-- [`get_tocs_tscores()`](https://Schachar-Crosbie-Lab.github.io/sfsScorer/reference/get_tocs_tscores.md)
-  **\[experimental\]** : Run analysis on TOCS raw values to return
-  t-scores
 - [`mkpro()`](https://Schachar-Crosbie-Lab.github.io/sfsScorer/reference/mkpro.md)
   : Make Prorated Scores
 - [`mkvars()`](https://Schachar-Crosbie-Lab.github.io/sfsScorer/reference/mkvars.md)
@@ -23,3 +20,6 @@
   : Runs the model that adjusts for time and create t-scores
 - [`run_model_tocs()`](https://Schachar-Crosbie-Lab.github.io/sfsScorer/reference/run_model_tocs.md)
   : Runs the model that adjusts for time and create t-scores
+- [`score_tocs2()`](https://Schachar-Crosbie-Lab.github.io/sfsScorer/reference/score_tocs2.md)
+  **\[experimental\]** : Run analysis on TOCS raw values to return
+  t-scores
