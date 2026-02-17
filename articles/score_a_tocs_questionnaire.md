@@ -4,13 +4,6 @@ The Toronto Obsessive-Compulsive Scale 2 (TOCS-2) is a validated
 instrument for measuring Obsessive-Compulsive (OCD) traits. This article
 shows you how to score your TOCS-2 tests.
 
-Let’s start by loading sfsScorer
-
-``` r
-library(sfsScorer)
-#> sfsScorer has been loaded
-```
-
 ## Quick Start
 
 The code below shows how to score a TOCS-2 questionnaire using the
@@ -18,10 +11,14 @@ The code below shows how to score a TOCS-2 questionnaire using the
 function.
 
 ``` r
+library(sfsScorer)
+#> sfsScorer has been loaded
 
-# Here's how we expect the data to be formatted
-# Must include age (5-18), gender (1 = boy, 2 = girl), p_respondent (1 = parent responded, 0 = Nonparent respondent)
-#   All tocs questions 1-24 as tocs1...tocs24
+#' Here's how we expect the data to be formatted
+#' age (5-18)
+#' gender (1 = boy, 2 = girl)
+#'  p_respondent (1 = parent responded, 0 = Nonparent respondent)
+#'  All tocs questions 1-24 as tocs1...tocs24
 head(random_data, 1)
 #>   age gender p_respondent tocs1 tocs2 tocs3 tocs4 tocs5 tocs6 tocs7 tocs8 tocs9
 #> 1  14      2            1    -1     2    -2     0     3    -1     0     1     2
@@ -59,39 +56,21 @@ scores_csv <- score_tocs2(file = tocs_csv)
 #> 4      2     1            1     1  56.2 NA
 ```
 
-## Notes about the data
-
-- The
-  [`get_swan_tscores()`](https://Schachar-Crosbie-Lab.github.io/sfsScorer/reference/get_swan_tscores.md)
-  function will ask you to upload a spreadsheet with your SWAN data. If
-  you have any additional columns beyond the necessary columns described
-  below, i.e. an identifier, those columns will remain untouched in the
-  output. For example, if your input file has two additional columns, an
-  identifier and parent’s education, those columns will pass through to
-  the output file.
-
-- Scores are automatically reversed before calculating the t-score so
-  that a higher score is associated with higher ADHD trait.
-
-- The test is split into two subdomains. Questions 1-9 measure
-  inattentiveness. Questions 10-18 measure hyperactivity and
-  impulsivity. If more than one question is missing from a subdomain the
-  test will not be scored.
+## Notes Before Starting
 
 - T-scores will be generated based on gendered and non-gendered norms.
   Please feel free to include children who are trans or non-binary in
   your dataset and leave the codes for their gender as appropriate for
   the individuals in your study. Non-gendered t-scores will be generated
-  for all individuals. To generate gendered t-scores for binary gendered
-  participants be sure to code gender as 1 = boy and 2 = girl. Any
-  gender not coded as 1 or 2 will not receive a gendered t-score. Any
-  gender not coded as 1 or 2 will not receive a gendered t-score.
+  for all individuals. Gendered t-scores will only be generated when
+  gender is coded as 1 or 2. It is recommended to use the non-gendered
+  t-scores for trans or non-binary individuals.
 
 ## Instructions
 
 ### Formatting Your Data
 
-Our first step is to prepare your raw SWAN data.
+Our first step is to prepare your raw TOCS-2 data.
 
 1.  Prepare a spreadsheet, preferably a .csv file, with a row for each
     of the tests you’d like to score.
@@ -108,73 +87,53 @@ Our first step is to prepare your raw SWAN data.
 
 Use the code below to generate your t-scores. First, you will be
 prompted to select your file. Second, we will check that your data are
-formatted properly. Third, t-scores for the full test as well as the two
-subdomains (inattentive and hyperactive) will be generated. Fourth, a
-csv file with the t-scores will be saved to your working directory
+formatted properly. Third, t-scores will be generated.
 
 If you receive an error, please correct the issue in your file, save
 your file, then run the
-[`get_swan_tscores()`](https://Schachar-Crosbie-Lab.github.io/sfsScorer/reference/get_swan_tscores.md)
+[`score_tocs2()`](https://Schachar-Crosbie-Lab.github.io/sfsScorer/reference/score_tocs2.md)
 function again.
 
 ``` r
 library(sfsScorer)
 
-# The get_swan_tscores checks that your data are formatted correctly and generates the t-scores
-swan_tscores <- get_swan_tscores()
+# The score_tocs2 function checks that your data are formatted correctly and generates the t-scores
+tocs <- score_tocs2()
 ```
 
 ### Additional options
 
-You have the option to specify…
-
-1.  the file path of the input file
-
-2.  where to export the csv file with t-scores
-
-3.  not to export the csv file
+You have the option to…
 
 ``` r
-library(sfsScorer)
+# Score from a data.frame in case the data do not exist in a csv file
+tocs <- score_tocs2(df = tocs)
 
-# Example of how to specify the input file
-swan_tscores <- get_swan_tscores(file = here("test_scores.csv"))
+# Specify the input file
+tocs <- score_tocs2(file = here("test_scores.csv"))
 
-# Example of how to specify an output folder
-swan_tscores <- get_swan_tscores(output_folder = file.path("C:","Users",..."yourpath"))
+# Export results to an output folder
+tocs <- score_tocs2(output_folder = file.path("C:","Users",..."yourpath"))
 
-# Example of how to not export a csv file
-swan_tscores <- get_swan_tscores(output_folder = NULL)
+# Change the number of allowed missingness. 
+# Default missinness is 0 questions. You can use the max_missing variable to allow more missingness
+# Doing so will use a prorated score to generate a t-score. This can produce outliers and issues
+tocs <- score_tocs2(file = here("test_scores.csv"), max_missing = 2)
 ```
 
 ## Understanding the Output
 
-### Reversed SWAN Scores
-
-- Columns `swan1` to `swan18` are reverse-scored and returned as
-  `swan1_reversed` to `swan18` reversed respectively.
-
 ### Summary Values
 
-| Column       | Description                                                                                                |
-|--------------|------------------------------------------------------------------------------------------------------------|
-| swan_tot     | A summed score of the answered questions across the entire test                                            |
-| swan_miss    | A count of missing values across the entire test                                                           |
-| swan_pro     | A prorated score by dividing swan_tot by the number of answered questions across the entire test           |
-| swan_ia_tot  | A summed score of the answered questions across the inattentive subdomain                                  |
-| swan_ia_miss | A count of missing values across the inattentive subdomain                                                 |
-| swan_ia_pro  | A prorated score by dividing swan_tot by the number of answered questions across the inattentive subdomain |
-| swan_hi_tot  | A summed score of the answered questions across the hyperactive subdomain                                  |
-| swan_hi_miss | A count of missing values across the hyperactive subdomain                                                 |
-| swan_hi_pro  | A prorated score by dividing swan_tot by the number of answered questions across the hyperactive subdomain |
+| Column    | Description                                                               |
+|-----------|---------------------------------------------------------------------------|
+| tocs_tot  | A summed score of the answered questions                                  |
+| tocs_miss | A count of missing values across                                          |
+| tocs_pro  | A prorated score by dividing swan_tot by the number of answered questions |
 
-### T-scores for generic model
+### T-scores
 
-| Column                  | Description                                                                                           |
-|-------------------------|-------------------------------------------------------------------------------------------------------|
-| swan_tot_gender_tscores | A t-score across the entire SWAN test that adjusts for age, respondent, and gender                    |
-| swan_tot_tscores        | A t-score across the entire SWAN test that adjusts for age and respondent                             |
-| swan_ia_gender_tscores  | A t-score of the inattentive subdomain (questions 1-9) that adjusts for age, respondent, and gender   |
-| swan_ia_tscores         | A t-score of the inattentive subdomain (questions 1-9) that adjusts for age and respondent            |
-| swan_hi_gender_tscores  | A t-score of the hyperactive subdomain (questions 10-18) that adjusts for age, respondent, and gender |
-| swan_hi_tscores         | A t-score of the hyperactive subdomain (questions 10-18) that adjusts for age and respondent          |
+| Column              | Description                                                                                  |
+|---------------------|----------------------------------------------------------------------------------------------|
+| tocs_gender_tscores | A t-score normed to the Spit for Science sample that adjusts for age, respondent, and gender |
+| tocs_tscores        | A t-score normed to the Spit for Science that adjusts for age and respondent                 |
