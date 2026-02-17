@@ -106,8 +106,7 @@ Our first step is to prepare your raw SWAN data.
 Use the code below to generate your t-scores. First, you will be
 prompted to select your file. Second, we will check that your data are
 formatted properly. Third, t-scores for the full test as well as the two
-subdomains (inattentive and hyperactive) will be generated. Fourth, a
-csv file with the t-scores will be saved to your working directory
+subdomains (inattentive and hyperactive) will be generated.
 
 If you receive an error, please correct the issue in your file, save
 your file, then run the
@@ -123,25 +122,15 @@ swan_tscores <- score_swan()
 
 ### Additional options
 
-You have the option to specify…
-
-1.  the file path of the input file
-
-2.  where to export the csv file with t-scores
-
-3.  not to export the csv file
-
 ``` r
-library(sfsScorer)
+# Score from a data.frame in case the data do not exist in a csv file, i.e. a REDCap API
+swan_tscores <- score_tocs2(df = sample_data)
 
 # Example of how to specify the input file
 swan_tscores <- score_swan(file = here("test_scores.csv"))
 
 # Example of how to specify an output folder
 swan_tscores <- score_swan(output_folder = file.path("C:","Users",..."yourpath"))
-
-# Example of how to not export a csv file
-swan_tscores <- score_swan(output_folder = NULL)
 ```
 
 ## Understanding the Output

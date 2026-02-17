@@ -20,7 +20,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">sfsScorer</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -303,8 +303,7 @@ intruding)</td>
 <p>Use the code below to generate your t-scores. First, you will be
 prompted to select your file. Second, we will check that your data are
 formatted properly. Third, t-scores for the full test as well as the two
-subdomains (inattentive and hyperactive) will be generated. Fourth, a
-csv file with the t-scores will be saved to your working directory</p>
+subdomains (inattentive and hyperactive) will be generated.</p>
 <p>If you receive an error, please correct the issue in your file, save
 your file, then run the <code><a href="../reference/score_swan.html">score_swan()</a></code> function again.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -316,22 +315,14 @@ your file, then run the <code><a href="../reference/score_swan.html">score_swan(
 <div class="section level3">
 <h3 id="additional-options">Additional options<a class="anchor" aria-label="anchor" href="#additional-options"></a>
 </h3>
-<p>You have the option to specify…</p>
-<ol style="list-style-type: decimal">
-<li><p>the file path of the input file</p></li>
-<li><p>where to export the csv file with t-scores</p></li>
-<li><p>not to export the csv file</p></li>
-</ol>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(sfsScorer)</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co"># Example of how to specify the input file</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>swan_tscores <span class="ot">&lt;-</span> <span class="fu">score_swan</span>(<span class="at">file =</span> <span class="fu">here</span>(<span class="st">"test_scores.csv"</span>))</span>
-<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co"># Example of how to specify an output folder</span></span>
-<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>swan_tscores <span class="ot">&lt;-</span> <span class="fu">score_swan</span>(<span class="at">output_folder =</span> <span class="fu">file.path</span>(<span class="st">"C:"</span>,<span class="st">"Users"</span>,...<span class="st">"yourpath"</span>))</span>
-<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co"># Example of how to not export a csv file</span></span>
-<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>swan_tscores <span class="ot">&lt;-</span> <span class="fu">score_swan</span>(<span class="at">output_folder =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Score from a data.frame in case the data do not exist in a csv file, i.e. a REDCap API</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>swan_tscores <span class="ot">&lt;-</span> <span class="fu">score_tocs2</span>(<span class="at">df =</span> sample_data)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># Example of how to specify the input file</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>swan_tscores <span class="ot">&lt;-</span> <span class="fu">score_swan</span>(<span class="at">file =</span> <span class="fu">here</span>(<span class="st">"test_scores.csv"</span>))</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co"># Example of how to specify an output folder</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>swan_tscores <span class="ot">&lt;-</span> <span class="fu">score_swan</span>(<span class="at">output_folder =</span> <span class="fu">file.path</span>(<span class="st">"C:"</span>,<span class="st">"Users"</span>,...<span class="st">"yourpath"</span>))</span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
