@@ -19,12 +19,9 @@ Let's start by loading sfsScorer
 library(sfsScorer)
 ```
 
-## At a glance
+## Quick Start
 
-The code below shows how to score a TOCS-2 questionnaire using the `score_tocs2()` function.
-
-```{r}
-
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
 # This is used to keep random data consistent
 set.seed(1)
 
@@ -34,7 +31,6 @@ pt_num <- 5
 # Generate all of the tocs2 data. Variables should be named tocs1 to tocs24, corresponding to each question on the tocs2.
 tocs2_sample <- as.data.frame(matrix(round(runif(n=pt_num*24, min=-3, max=3), 0), nrow=pt_num)) |> 
   setNames(c(paste0('tocs',seq(from = 1, to = 24, by = 1))))
-  
 
 # Import your data. In this example, we will use random data.
 random_data <- data.frame(age = sample(5:18, size = pt_num), # age must be between 5 and 18 
@@ -43,12 +39,27 @@ random_data <- data.frame(age = sample(5:18, size = pt_num), # age must be betwe
   dplyr::mutate(p_respondent = 1) |>  # p_respondent stands for parent respondent. 1 for yes, 0 for no
   dplyr::bind_cols(tocs2_sample)
 
+```
+
+The code below shows how to score a TOCS-2 questionnaire using the `score_tocs2()` function.
+
+
+```{r}
+
 # Here's how we expect the data to be formatted
+# Must include age (5-18), gender (1 = boy, 2 = girl), p_respondent (1 = parent responded, 0 = Nonparent respondent)
+#   All tocs questions 1-24 as tocs1...tocs24
 head(random_data, 1)
 
-# Score the tocs2!
+
+# Score from a data frame
 # Read below for more options when scoring
 scores <- score_tocs2(df = random_data)
+
+# OR
+# Score from a a csv or xlsx file
+tocs_csv <- system.file("extdata", "sample_tocs.csv", package = "sfsScorer")
+scores_csv <- score_tocs2(file = tocs_csv)
 
 ```
 
