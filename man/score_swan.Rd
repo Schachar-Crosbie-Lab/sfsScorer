@@ -4,10 +4,10 @@
 \alias{score_swan}
 \title{Run analysis on SWAN raw values to return t-scores}
 \usage{
-score_swan(df = NULL, file = FALSE, output_folder = NULL, max_missing = 0)
+score_swan(df = NULL, file = FALSE, output_folder = NULL)
 }
 \arguments{
-\item{df}{If you already have the TOCS-2 data in your R environment, pass the dataframe to this parameter}
+\item{df}{If you already have the SWAN data in your R environment, pass the dataframe to this parameter}
 
 \item{file}{If you prefer scoring a spreadsheet...
 \enumerate{
@@ -21,9 +21,6 @@ score_swan(df = NULL, file = FALSE, output_folder = NULL, max_missing = 0)
 \item Specify a pathway - This will output a csv file to the specified pathway
 \item Set to \code{NULL} - This will not output a csv file
 }}
-
-\item{max_missing}{By default, 0 items are allowed to be missing on the TOCS. Any questionnaire with 1 or more missing, will not be scored. If you'd like to adjust this number, change the max_missing value.
-This will use a prorated score to generate t-scores. Please be aware that missingness can induce issues when analyzing.}
 }
 \value{
 table with t-scores attached to raw swan values
