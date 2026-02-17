@@ -73,31 +73,15 @@ shows you how to score your TOCS-2 tests.</p>
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Schachar-Crosbie-Lab/sfsScorer" class="external-link">sfsScorer</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; sfsScorer has been loaded</span></span></code></pre></div>
 <div class="section level2">
-<h2 id="at-a-glance">At a glance<a class="anchor" aria-label="anchor" href="#at-a-glance"></a>
+<h2 id="quick-start">Quick Start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h2>
 <p>The code below shows how to score a TOCS-2 questionnaire using the
 <code><a href="../reference/score_tocs2.html">score_tocs2()</a></code> function.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
-<span><span class="co"># This is used to keep random data consistent</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Number of random participants to generate</span></span>
-<span><span class="va">pt_num</span> <span class="op">&lt;-</span> <span class="fl">5</span></span>
-<span></span>
-<span><span class="co"># Generate all of the tocs2 data. Variables should be named tocs1 to tocs24, corresponding to each question on the tocs2.</span></span>
-<span><span class="va">tocs2_sample</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span>n<span class="op">=</span><span class="va">pt_num</span><span class="op">*</span><span class="fl">24</span>, min<span class="op">=</span><span class="op">-</span><span class="fl">3</span>, max<span class="op">=</span><span class="fl">3</span><span class="op">)</span>, <span class="fl">0</span><span class="op">)</span>, nrow<span class="op">=</span><span class="va">pt_num</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/stats/setNames.html" class="external-link">setNames</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'tocs'</span>,<span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">1</span>, to <span class="op">=</span> <span class="fl">24</span>, by <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>  </span>
-<span></span>
-<span><span class="co"># Import your data. In this example, we will use random data.</span></span>
-<span><span class="va">random_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">18</span>, size <span class="op">=</span> <span class="va">pt_num</span><span class="op">)</span>, <span class="co"># age must be between 5 and 18 </span></span>
-<span>                          gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>, size <span class="op">=</span> <span class="va">pt_num</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># gender where 1 = boy and 2 = girl. </span></span>
-<span>                          <span class="co">#Both gendered and non-gendered t-scores are generated. If a participant is gender-diverse, use the non-gendered t-scores.</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>p_respondent <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">|&gt;</span>  <span class="co"># p_respondent stands for parent respondent. 1 for yes, 0 for no</span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_cols.html" class="external-link">bind_cols</a></span><span class="op">(</span><span class="va">tocs2_sample</span><span class="op">)</span></span>
-<span></span>
 <span><span class="co"># Here's how we expect the data to be formatted</span></span>
+<span><span class="co"># Must include age (5-18), gender (1 = boy, 2 = girl), p_respondent (1 = parent responded, 0 = Nonparent respondent)</span></span>
+<span><span class="co">#   All tocs questions 1-24 as tocs1...tocs24</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">random_data</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   age gender p_respondent tocs1 tocs2 tocs3 tocs4 tocs5 tocs6 tocs7 tocs8 tocs9</span></span>
 <span><span class="co">#&gt; 1  14      2            1    -1     2    -2     0     3    -1     0     1     2</span></span>
@@ -106,7 +90,8 @@ shows you how to score your TOCS-2 tests.</p>
 <span><span class="co">#&gt;   tocs21 tocs22 tocs23 tocs24</span></span>
 <span><span class="co">#&gt; 1      1     -2      3     -3</span></span>
 <span></span>
-<span><span class="co"># Score the tocs2!</span></span>
+<span></span>
+<span><span class="co"># Score from a data frame</span></span>
 <span><span class="co"># Read below for more options when scoring</span></span>
 <span><span class="va">scores</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/score_tocs2.html">score_tocs2</a></span><span class="op">(</span>df <span class="op">=</span> <span class="va">random_data</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The model scored 5 observations.</span></span>
@@ -114,6 +99,20 @@ shows you how to score your TOCS-2 tests.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># Groups:   gender, youth [4]</span></span></span>
 <span><span class="co">#&gt;   gender youth p_respondent     n  mean    sd</span></span>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>      1     0            1     2  57.1  2.83</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>      1     1            1     1  54.8 <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>      2     0            1     1  60.4 <span style="color: #BB0000;">NA</span>   </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>      2     1            1     1  56.2 <span style="color: #BB0000;">NA</span></span></span>
+<span></span>
+<span><span class="co"># OR</span></span>
+<span><span class="co"># Score from a a csv or xlsx file</span></span>
+<span><span class="va">tocs_csv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"sample_tocs.csv"</span>, package <span class="op">=</span> <span class="st">"sfsScorer"</span><span class="op">)</span></span>
+<span><span class="va">scores_csv</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/score_tocs2.html">score_tocs2</a></span><span class="op">(</span>file <span class="op">=</span> <span class="va">tocs_csv</span><span class="op">)</span></span>
+<span><span class="co">#&gt; <span style="color: #00BB00;">✔</span> The model scored 5 observations.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 4 × 6</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># Groups:   gender, youth [4]</span></span></span>
+<span><span class="co">#&gt;   gender youth p_respondent     n  mean    sd</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>      1     0            1     2  57.1  2.83</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>      1     1            1     1  54.8 <span style="color: #BB0000;">NA</span>   </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>      2     0            1     1  60.4 <span style="color: #BB0000;">NA</span>   </span></span>

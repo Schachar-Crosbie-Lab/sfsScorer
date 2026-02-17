@@ -11,7 +11,7 @@ library(sfsScorer)
 #> sfsScorer has been loaded
 ```
 
-## At a glance
+## Quick Start
 
 The code below shows how to score a TOCS-2 questionnaire using the
 [`score_tocs2()`](https://Schachar-Crosbie-Lab.github.io/sfsScorer/reference/score_tocs2.md)
@@ -19,25 +19,9 @@ function.
 
 ``` r
 
-# This is used to keep random data consistent
-set.seed(1)
-
-# Number of random participants to generate
-pt_num <- 5
-
-# Generate all of the tocs2 data. Variables should be named tocs1 to tocs24, corresponding to each question on the tocs2.
-tocs2_sample <- as.data.frame(matrix(round(runif(n=pt_num*24, min=-3, max=3), 0), nrow=pt_num)) |> 
-  setNames(c(paste0('tocs',seq(from = 1, to = 24, by = 1))))
-  
-
-# Import your data. In this example, we will use random data.
-random_data <- data.frame(age = sample(5:18, size = pt_num), # age must be between 5 and 18 
-                          gender = sample(1:2, size = pt_num, replace = TRUE)) |>  # gender where 1 = boy and 2 = girl. 
-                          #Both gendered and non-gendered t-scores are generated. If a participant is gender-diverse, use the non-gendered t-scores.
-  dplyr::mutate(p_respondent = 1) |>  # p_respondent stands for parent respondent. 1 for yes, 0 for no
-  dplyr::bind_cols(tocs2_sample)
-
 # Here's how we expect the data to be formatted
+# Must include age (5-18), gender (1 = boy, 2 = girl), p_respondent (1 = parent responded, 0 = Nonparent respondent)
+#   All tocs questions 1-24 as tocs1...tocs24
 head(random_data, 1)
 #>   age gender p_respondent tocs1 tocs2 tocs3 tocs4 tocs5 tocs6 tocs7 tocs8 tocs9
 #> 1  14      2            1    -1     2    -2     0     3    -1     0     1     2
@@ -46,7 +30,8 @@ head(random_data, 1)
 #>   tocs21 tocs22 tocs23 tocs24
 #> 1      1     -2      3     -3
 
-# Score the tocs2!
+
+# Score from a data frame
 # Read below for more options when scoring
 scores <- score_tocs2(df = random_data)
 #> ✔ The model scored 5 observations.
@@ -54,6 +39,20 @@ scores <- score_tocs2(df = random_data)
 #> # Groups:   gender, youth [4]
 #>   gender youth p_respondent     n  mean    sd
 #>    <int> <dbl>        <dbl> <int> <dbl> <dbl>
+#> 1      1     0            1     2  57.1  2.83
+#> 2      1     1            1     1  54.8 NA   
+#> 3      2     0            1     1  60.4 NA   
+#> 4      2     1            1     1  56.2 NA
+
+# OR
+# Score from a a csv or xlsx file
+tocs_csv <- system.file("extdata", "sample_tocs.csv", package = "sfsScorer")
+scores_csv <- score_tocs2(file = tocs_csv)
+#> ✔ The model scored 5 observations.
+#> # A tibble: 4 × 6
+#> # Groups:   gender, youth [4]
+#>   gender youth p_respondent     n  mean    sd
+#>    <int> <dbl>        <int> <int> <dbl> <dbl>
 #> 1      1     0            1     2  57.1  2.83
 #> 2      1     1            1     1  54.8 NA   
 #> 3      2     0            1     1  60.4 NA   
