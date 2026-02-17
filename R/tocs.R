@@ -72,6 +72,7 @@ score_tocs2 <- function(df = NULL, file = FALSE, output_folder = NULL,
     } else if(file == TRUE | is.logical(file)){
       cli::cli_alert_info('No file pathway was found. Please use the finder to select the file you would like to score.')
       file <- file.choose()
+      df <- rio::import(file)
     }
   }
 

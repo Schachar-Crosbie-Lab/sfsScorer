@@ -11,15 +11,58 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r setup, echo = FALSE}
-library(sfsScorer)
-```
-
 The Strengths and Weaknesses of ADHD Symptoms and Normal Behavior Rating
 Scale (SWAN) is a validated instrument for measuring
 attention-deficit/hyperactivity disorder (ADHD) traits ([Burton et al.,
 2018](https://doi.org/10.1101/248484)). The sfsScorer package provides
 an easy way to automatically score your SWAN tests.
+
+## Quick Start
+
+```{r, echo = FALSE, message = FALSE, warning=FALSE}
+# This is used to keep random data consistent
+set.seed(1)
+
+# Number of random participants to generate
+pt_num <- 5
+
+# Generate all of the tocs2 data. Variables should be named tocs1 to tocs24, corresponding to each question on the tocs2.
+sample <- as.data.frame(matrix(round(runif(n=pt_num*18, min=-3, max=3), 0), nrow=pt_num)) |> 
+  setNames(c(paste0('swan',seq(from = 1, to = 18, by = 1))))
+
+# Import your data. In this example, we will use random data.
+random_data <- data.frame(age = sample(5:18, size = pt_num), # age must be between 5 and 18 
+                          gender = sample(1:2, size = pt_num, replace = TRUE)) |>  # gender where 1 = boy and 2 = girl. 
+                          #Both gendered and non-gendered t-scores are generated. If a participant is gender-diverse, use the non-gendered t-scores.
+  dplyr::mutate(p_respondent = 1) |>  # p_respondent stands for parent respondent. 1 for yes, 0 for no
+  dplyr::bind_cols(sample)
+
+```
+
+The code below shows how to score a TOCS-2 questionnaire using the `score_tocs2()` function.
+
+
+```{r}
+library(sfsScorer)
+
+#' Here's how we expect the data to be formatted
+#' age (5-18)
+#' gender (1 = boy, 2 = girl)
+#'  p_respondent (1 = parent responded, 0 = Nonparent respondent)
+#'  All tocs questions 1-24 as tocs1...tocs24
+head(random_data, 1)
+
+
+# Score from a data frame
+# Read below for more options when scoring
+scores <- score_swan(df = random_data)
+
+# OR
+# Score from a a csv or xlsx file
+swan <- system.file("extdata", "sample_tocs.csv", package = "sfsScorer")
+scores_csv <- score_swan(file = tocs_csv)
+
+```
 
 ## Notes about the data
 

@@ -14,13 +14,22 @@
 #     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-#' @name get_swan_tscores
+#' @name score_swan
 #'
 #' @title Run analysis on SWAN raw values to return t-scores
 #'
-#' @description get_swan_tscores() returns gendered and non-gendered t-scores for the Strengths and Weaknesses of ADHD Symptoms and Normal Behavior Rating Scale (SWAN) assessment
+#' @description score_swan() returns gendered and non-gendered t-scores for the Strengths and Weaknesses of ADHD Symptoms and Normal Behavior Rating Scale (SWAN) assessment
 #'
-#' @param file Pathway to formatted raw SWAN scores. If left blank file finder will pop up to allow you to select the file.
+#' `r lifecycle::badge('experimental')`
+#'
+#' @param df If you already have the TOCS-2 data in your R environment, pass the dataframe to this parameter
+#' @param file If you prefer scoring a spreadsheet...
+#' \enumerate{
+#'  \item TRUE - This will pop-up a finder to allow you select a file
+#'  \item Specify a pathway
+#'  }
+#' @param max_missing By default, 0 items are allowed to be missing on the TOCS. Any questionnaire with 1 or more missing, will not be scored. If you'd like to adjust this number, change the max_missing value.
+#'  This will use a prorated score to generate t-scores. Please be aware that missingness can induce issues when analyzing.
 #' @param output_folder Output file pathway
 #'  \enumerate{
 #'  \item Leave blank - This will output a csv file with the t-scores to your working directory
@@ -36,6 +45,7 @@
 #' @importFrom stats sd
 #' @importFrom here here
 #' @importFrom rlang .data
+#' @importFrom cli cli_alert_success
 #'
 #' @returns table with t-scores attached to raw swan values
 #'
@@ -43,14 +53,30 @@
 #'
 #'
 
-get_swan_tscores <- function(file = NULL, output_folder = here::here()) {
+score_swan <- function(df = NULL, file = FALSE, output_folder = NULL,
+                       max_missing = 0) {
 
-  if(is.null(file)){
-    file <- file.choose()
+  if(is.null(df) | is.character(df) | is.logical(df)){
+
+    # Import df
+    if(is.character(file)){
+
+      #Check to make sure the filetype is correct
+      if(!rio::get_ext(file) %in% c('csv','xlsx','xls')){
+        stop(paste0(basename(file),'s filetype is not usable. It must be a .csv, .xlsx, or .xls filetype. Please correct the filetype before continuing'))
+      }
+
+      df <- rio::import(file)
+    } else if(file == TRUE | is.logical(file)){
+      cli::cli_alert_info('No file pathway was found. Please use the finder to select the file you would like to score.')
+      file <- file.choose()
+      df <- rio::import(file)
+    }
   }
 
+
   # Run QC checks on data
-  check <- clean_file(file, test = 'swan')
+  check <- clean_file(df, test = 'swan')
 
   # Summarize Scores
   summary <- build_summary_swan(check)
