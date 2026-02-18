@@ -17,7 +17,7 @@ library(sfsScorer)
 #' Here's how we expect the data to be formatted
 #' age (5-18)
 #' gender (1 = boy, 2 = girl)
-#'  p_respondent (1 = parent responded, 0 = Nonparent respondent)
+#'  p_respondent (1 = parent / caregiver responded, 0 = child / youth respondent)
 #'  All tocs questions 1-24 as tocs1...tocs24
 head(random_data, 1)
 #>   age gender p_respondent tocs1 tocs2 tocs3 tocs4 tocs5 tocs6 tocs7 tocs8 tocs9

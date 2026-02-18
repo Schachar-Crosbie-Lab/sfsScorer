@@ -79,7 +79,7 @@ shows you how to score your TOCS-2 tests.</p>
 <span><span class="co">#' Here's how we expect the data to be formatted</span></span>
 <span><span class="co">#' age (5-18)</span></span>
 <span><span class="co">#' gender (1 = boy, 2 = girl)</span></span>
-<span><span class="co">#'  p_respondent (1 = parent responded, 0 = Nonparent respondent)</span></span>
+<span><span class="co">#'  p_respondent (1 = parent / caregiver responded, 0 = child / youth respondent)</span></span>
 <span><span class="co">#'  All tocs questions 1-24 as tocs1...tocs24</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">random_data</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   age gender p_respondent tocs1 tocs2 tocs3 tocs4 tocs5 tocs6 tocs7 tocs8 tocs9</span></span>
@@ -180,7 +180,8 @@ not receive a gendered t-score.</td>
 <tr class="odd">
 <td>p_respondent</td>
 <td>Whether the survey was filled out by the parent or the child</td>
-<td>1 = Parent Respondent, 0 = Child / Youth Self-Respondent</td>
+<td>1 = Parent / Caregiver Respondent, 0 = Child / Youth
+Self-Respondent</td>
 </tr>
 <tr class="even">
 <td>tocs1</td>
