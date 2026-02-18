@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Spit for Science Scorer <a href="https://Schachar-Crosbie-Lab.github.io/sfsScorer/"><img src="man/figures/logo.png" align="right" height="138" alt="sfsScorer website" /></a>
+# Spit for Science Scorer <a href="https://jclutton.github.io/sfsScorer/"><img src="man/figures/logo.png" align="right" height="138" alt="sfsScorer website" /></a>
 
 <!-- badges: start -->
 
@@ -35,14 +35,14 @@ version of sfsScorer from [GitHub](https://github.com/) with:
 ``` r
 # Install with pak
 install.packages("pak")
-pak::pak("Schachar-Crosbie-Lab/sfsScorer")
+pak::pak("jclutton/sfsScorer")
 
 #OR 
 
 # Install with devtools
 # If the devtools package isn't installed already, do so first. 
 install.packages("devtools")
-devtools::install_github("Schachar-Crosbie-Lab/sfsScorer")
+devtools::install_github("jclutton/sfsScorer")
 ```
 
 ## Scoring Tools
@@ -51,7 +51,7 @@ Click on the questionnaire link for instructions.
 
 - [The Strengths and Weaknesses of ADHD Symptoms and Normal Behavior
   Rating Scale
-  (SWAN)](https://schachar-crosbie-lab.github.io/sfsScorer/articles/score_a_swan_questionnaire.html)
+  (SWAN)](https://jclutton.github.io/sfsScorer/articles/score_a_swan_questionnaire.html)
 
 - [Toronto Obsessive-Compulsive Scale 2
-  (TOCS-2)](https://schachar-crosbie-lab.github.io/sfsScorer/articles/score_a_tocs_questionnaire.html)
+  (TOCS-2)](https://jclutton.github.io/sfsScorer/articles/score_a_tocs_questionnaire.html)
