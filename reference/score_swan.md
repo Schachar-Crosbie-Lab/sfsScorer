@@ -9,7 +9,7 @@ Scale (SWAN) assessment
 ## Usage
 
 ``` r
-score_swan(df = NULL, file = FALSE, output_folder = NULL)
+score_swan(df = NULL, file = FALSE, output_folder = NULL, ignore_check = FALSE)
 ```
 
 ## Arguments
@@ -38,6 +38,14 @@ score_swan(df = NULL, file = FALSE, output_folder = NULL)
       pathway
 
   3.  Set to `NULL` - This will not output a csv file
+
+- ignore_check:
+
+  Data are validated to look for missing or improperly formatted values
+  before scoring. Errors are thrown when data aren't valid; however,
+  this can cause issues in real data sets where data vary for good
+  reasons. To skip the validation process, set ignore_check to TRUE. NAs
+  will be returned where data are invalid
 
 ## Value
 
