@@ -34,6 +34,8 @@
 #'  \item Specify a pathway - This will output a csv file to the specified pathway
 #'  \item Set to `NULL` - This will not output a csv file
 #'  }
+#' @param ignore_check Data are validated to look for missing or improperly formatted values before scoring. Errors are thrown when data aren't valid; however, this can cause issues
+#' in real data sets where data vary for good reasons. To skip the validation process, set ignore_check to TRUE. NAs will be returned where data are invalid
 #'
 #' @importFrom rio export
 #' @importFrom lubridate now
@@ -47,11 +49,12 @@
 #'
 #' @returns table with t-scores attached to raw swan values
 #'
+#'
 #' @export
 #'
 #'
 
-score_swan <- function(df = NULL, file = FALSE, output_folder = NULL) {
+score_swan <- function(df = NULL, file = FALSE, output_folder = NULL, ignore_check = FALSE) {
 
   if(is.null(df) | is.character(df) | is.logical(df)){
 

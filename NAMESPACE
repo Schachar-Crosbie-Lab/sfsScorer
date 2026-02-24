@@ -2,6 +2,7 @@
 
 export(score_swan)
 export(score_tocs2)
+import(cli)
 import(dplyr)
 importFrom(cli,cli_alert_success)
 importFrom(dplyr,across)

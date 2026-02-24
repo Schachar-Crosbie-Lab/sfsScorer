@@ -13,6 +13,46 @@ test_that("clean_file finds impossible values", {
   expect_error(clean_file(df, test = 'swan'))
 })
 
+test_that("clean_file fixes p_respondent", {
+  file <- system.file("extdata", "sample_swan.csv", package = "sfsScorer")
+  df <- rio::import(file) |>
+    dplyr::mutate(p_respondent = 5)
+  expect_error(clean_file(df, test = 'swan'))
+})
+
+test_that("clean_file fixes age class", {
+  file <- system.file("extdata", "sample_swan.csv", package = "sfsScorer")
+  df <- rio::import(file) |>
+    mutate(row = row_number()) |>
+    mutate(age = as.character(age)) |>
+    dplyr::mutate(age = case_when(row == 2 ~ 'row',
+                                  T ~ age)) |>
+    select(-row)
+  expect_error(clean_file(df, test = 'swan'))
+})
+
+test_that("clean_file fixes age above 19 or below 5", {
+  file <- system.file("extdata", "sample_swan.csv", package = "sfsScorer")
+  df <- rio::import(file) |>
+    mutate(row = row_number()) |>
+    dplyr::mutate(age = case_when(row == 2 ~ 20,
+                                  row == 4 ~ 2,
+                                  T ~ age)) |>
+    select(-row)
+  expect_error(clean_file(df, test = 'swan'))
+})
+
+test_that("clean_file checks gender", {
+  file <- system.file("extdata", "sample_swan.csv", package = "sfsScorer")
+  df <- rio::import(file) |>
+    mutate(gender = NA)
+  expect_warning(clean_file(df, test = 'swan'))
+})
+
+
+
+
+
 test_that("mkvars works properly", {
   vars <- mkvars(1, 18, root = 'swan')
   expect_equal(vars, paste0('swan',seq(1, 18, by = 1)))
