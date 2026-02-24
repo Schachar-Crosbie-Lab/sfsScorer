@@ -5,19 +5,19 @@ test_that("clean_file finds missing columns", {
   expect_error(clean_file(df, test = 'swan'))
 })
 
-
+#### Check File - ignore_check = F ####
 test_that("clean_file finds impossible values", {
   file <- system.file("extdata", "sample_swan.csv", package = "sfsScorer")
   df <- rio::import(file) |>
     mutate(swan1 = 10)
-  expect_error(clean_file(df, test = 'swan'))
+  expect_error(clean_file(df, test = 'swan', ignore_check = F))
 })
 
 test_that("clean_file fixes p_respondent", {
   file <- system.file("extdata", "sample_swan.csv", package = "sfsScorer")
   df <- rio::import(file) |>
     dplyr::mutate(p_respondent = 5)
-  expect_error(clean_file(df, test = 'swan'))
+  expect_error(clean_file(df, test = 'swan', ignore_check = F))
 })
 
 test_that("clean_file fixes age class", {
@@ -28,7 +28,7 @@ test_that("clean_file fixes age class", {
     dplyr::mutate(age = case_when(row == 2 ~ 'row',
                                   T ~ age)) |>
     select(-row)
-  expect_error(clean_file(df, test = 'swan'))
+  expect_error(clean_file(df, test = 'swan', ignore_check = F))
 })
 
 test_that("clean_file fixes age above 19 or below 5", {
@@ -39,7 +39,7 @@ test_that("clean_file fixes age above 19 or below 5", {
                                   row == 4 ~ 2,
                                   T ~ age)) |>
     select(-row)
-  expect_error(clean_file(df, test = 'swan'))
+  expect_error(clean_file(df, test = 'swan', ignore_check = F))
 })
 
 test_that("clean_file checks gender", {
@@ -49,10 +49,43 @@ test_that("clean_file checks gender", {
   expect_warning(clean_file(df, test = 'swan'))
 })
 
+#### Check File - ignore_check = T ####
+test_that("clean_file finds impossible values ignore check", {
+  file <- system.file("extdata", "sample_swan.csv", package = "sfsScorer")
+  df <- rio::import(file) |>
+    mutate(swan1 = 10)
+  expect <- df |>
+    mutate(swan1 = case_when(swan1 == 10 ~ NA,
+                             T ~ swan1))
+  expect_equal(clean_file(df, test = 'swan', ignore_check = T), expect)
+})
 
+test_that("clean_file fixes p_respondent ignore check", {
+  file <- system.file("extdata", "sample_swan.csv", package = "sfsScorer")
+  df <- rio::import(file) |>
+    dplyr::mutate(p_respondent = 5)
+  expect <- df |>
+    mutate(p_respondent = case_when(p_respondent %in% c(1,0) ~ p_respondent,
+                             T ~ NA))
+  expect_equal(clean_file(df, test = 'swan', ignore_check = T), expect)
+})
 
+test_that("clean_file fixes age class ignore check", {
+  file <- system.file("extdata", "sample_swan.csv", package = "sfsScorer")
+  df <- rio::import(file) |>
+    mutate(row = row_number()) |>
+    mutate(age = as.character(age)) |>
+    dplyr::mutate(age = case_when(row == 2 ~ 'row',
+                                  T ~ age)) |>
+    select(-row)
+  expect <- df |>
+    mutate(age = case_when(age == 'row' ~ NA,
+                           T ~ age)) |>
+    mutate(age = as.numeric(age))
+  expect_equal(clean_file(df, test = 'swan', ignore_check = T), expect)
+})
 
-
+#### Make Variables ####
 test_that("mkvars works properly", {
   vars <- mkvars(1, 18, root = 'swan')
   expect_equal(vars, paste0('swan',seq(1, 18, by = 1)))

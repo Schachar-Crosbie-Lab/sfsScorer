@@ -86,7 +86,7 @@ clean_file <- function(df = NULL, test = NULL, ignore_check = NULL) {
   if(nrow(df_long) > 0){
 
     values <- df_long |>
-      select(.data$row, .data$name, .data$value) |>
+      select(row, name, value) |>
       mutate(text = paste0("Row ",.data$row,": ", .data$name," - ", .data$value))
 
     if(!ignore_check){
@@ -153,8 +153,8 @@ clean_file <- function(df = NULL, test = NULL, ignore_check = NULL) {
 
     } else if(ignore_check){
 
-      df <- df |>
-        mutate(age = as.numeric(.data$age))
+      suppressWarnings(df <- df |>
+        mutate(age = as.numeric(.data$age)))
 
       cli::cli_alert_warning(paste("{sum(is.na(rows$parse_age))} non-valid {.field age} value{?s} {?was/were} changed to {.emph NA}. This could impact scores. \n",
                                    "{.field age} must be a number between {.val {c(5,19)}}. To correct, review the following rows before re-running - {.val {rows$row}}"))
@@ -164,7 +164,7 @@ clean_file <- function(df = NULL, test = NULL, ignore_check = NULL) {
     }
 
   # Check that Age is formatted correctly
-  if(any(df$age >= 19) | any(df$age < 5)){
+  if(any(df$age >= 19, na.rm = T) | any(df$age < 5, na.rm = T)){
 
     rows <- df_temp |>
       filter(.data$age >= 19 | .data$age < 5)

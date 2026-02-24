@@ -12,7 +12,7 @@ Description: Spit for Science (SFS) was a cross-sectional mental health study pe
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-URL: https://github.com/Schachar-Crosbie-Lab/sfsScorer, https://Schachar-Crosbie-Lab.github.io/sfsScorer/
+URL: https://github.com/jclutton/sfsScorer, https://jclutton.github.io/sfsScorer/
 BugReports: https://github.com/jclutton/sfsScorer/issues
 Suggests: 
     testthat (>= 3.0.0)
