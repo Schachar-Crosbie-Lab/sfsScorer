@@ -75,14 +75,14 @@ tests.</p>
 <p>The code below shows how to score a SWAN questionnaire using the
 <code><a href="../reference/score_swan.html">score_swan()</a></code> function.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Schachar-Crosbie-Lab/sfsScorer" class="external-link">sfsScorer</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jclutton/sfsScorer" class="external-link">sfsScorer</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; sfsScorer has been loaded</span></span>
 <span></span>
 <span><span class="co">#' Here's how we expect the data to be formatted</span></span>
 <span><span class="co">#' age (5-18)</span></span>
 <span><span class="co">#' gender (1 = boy, 2 = girl)</span></span>
 <span><span class="co">#' p_respondent (1 = parent / caregiver responded, 0 = child / youth respondent)</span></span>
-<span><span class="co">#' All swan questions 1-18 as swan1...swan24</span></span>
+<span><span class="co">#' All swan questions 1-18 as swan1...swan18</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">random_data</span>, <span class="fl">1</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   age gender p_respondent swan1 swan2 swan3 swan4 swan5 swan6 swan7 swan8 swan9</span></span>
 <span><span class="co">#&gt; 1  13      1            1    -1     2    -2     0     3    -1     0     1     2</span></span>
@@ -307,7 +307,7 @@ subdomains (inattentive and hyperactive) will be generated.</p>
 <p>If you receive an error, please correct the issue in your file, save
 your file, then run the <code><a href="../reference/score_swan.html">score_swan()</a></code> function again.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Schachar-Crosbie-Lab/sfsScorer" class="external-link">sfsScorer</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jclutton/sfsScorer" class="external-link">sfsScorer</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># The score_swan checks that your data are formatted correctly and generates the t-scores</span></span>
 <span><span class="va">swan_tscores</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/score_swan.html">score_swan</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
