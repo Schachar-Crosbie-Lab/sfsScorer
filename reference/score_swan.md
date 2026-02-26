@@ -81,15 +81,7 @@ scores_csv <- score_swan(df = df)
 # To ignore the validation errors and introduce `NA`, set `ignore_check = TRUE`
 df_mod <- df |>
   dplyr::mutate(swan1 = 6)
-scores_csv <- score_swan(df = df, ignore_check = TRUE)
-#> ✔ The model scored 5 observations.
-#> # A tibble: 4 × 6
-#> # Groups:   gender, youth [4]
-#>   gender youth p_respondent     n  mean     sd
-#>    <int> <dbl>        <int> <int> <dbl>  <dbl>
-#> 1      1     1            1     1  50.8 NA    
-#> 2      2     0            1     2  55.5  0.844
-#> 3      2     1            0     1  58.3 NA    
-#> 4      5     0            1     1 NaN   NA    
+scores_csv <- score_swan(df = df_mod, ignore_check = TRUE)
+#> Error in !ignore_check: invalid argument type
 
 ```
