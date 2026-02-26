@@ -11,19 +11,14 @@ score_swan(df = NULL, file = FALSE, output_folder = NULL, ignore_check = FALSE)
 
 \item{file}{If you prefer scoring a spreadsheet...
 \enumerate{
-\item TRUE - This will pop-up a finder to allow you select a file
-\item Specify a pathway
+\item Change to \code{TRUE} to pop-up a finder to allow you select a file. Alternatively, leave df and file empty to pop-up a finder.
+\item Or specify a pathway
 }}
 
-\item{output_folder}{Output file pathway
-\enumerate{
-\item Leave blank - This will output a csv file with the t-scores to your working directory
-\item Specify a pathway - This will output a csv file to the specified pathway
-\item Set to \code{NULL} - This will not output a csv file
-}}
+\item{output_folder}{Optional, output file pathway. Defauts to \code{NULL}. Specify a pathway to output a csv file.}
 
 \item{ignore_check}{Data are validated to look for missing or improperly formatted values before scoring. Errors are thrown when data aren't valid; however, this can cause issues
-in real data sets where data vary for good reasons. To skip the validation process, set ignore_check to TRUE. NAs will be returned where data are invalid}
+in real data sets where data vary for good reasons. To skip the validation process, set ignore_check to \code{TRUE}. NAs will be returned where data are invalid}
 }
 \value{
 table with t-scores attached to raw swan values
@@ -34,9 +29,19 @@ score_swan() returns gendered and non-gendered t-scores for the Strengths and We
 \ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#experimental}{\figure{lifecycle-experimental.svg}{options: alt='[Experimental]'}}}{\strong{[Experimental]}}
 }
 \examples{
-score_swan(df = validate_data)
-score_swan(df = validate_date, ignore_check = TRUE)
+# Read in the file of scores
+csv <- system.file("extdata", "sample_swan.csv", package = "sfsScorer")
 
+# Score via the file parameter
+scores_csv <- score_swan(file = csv)
+
+# Score via the df paramter
+df <- rio::import(csv)
+scores_csv <- score_swan(df = df)
+
+# The data are automatically validated.
+# To ignore the validation errors and introduce `NA`, set `ignore_check = FALSE`
+scores_csv <- score_swan(df = df, ignore_check = FALSE)
 
 
 }

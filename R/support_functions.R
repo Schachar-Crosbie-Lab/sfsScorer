@@ -82,13 +82,15 @@ clean_file <- function(df = NULL, test = NULL, ignore_check = NULL) {
 
   ##### Check for impossible values ###
   df_long <- df_temp |>
-    tidyr::pivot_longer(cols = dplyr::all_of(required_test_cols)) |>
+    tidyr::pivot_longer(cols = dplyr::all_of(required_test_cols),
+                        names_to = 'name',
+                        values_to = 'value') |>
     dplyr::filter(!.data$value %in% value_range)
 
   if(nrow(df_long) > 0){
 
     values <- df_long |>
-      select(row, name, value) |>
+      select(c('row', 'name', 'value')) |>
       mutate(text = paste0("Row ",.data$row,": ", .data$name," - ", .data$value))
 
     if(!ignore_check){
