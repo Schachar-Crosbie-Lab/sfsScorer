@@ -50,3 +50,14 @@ score_swan(df = NULL, file = FALSE, output_folder = NULL, ignore_check = FALSE)
 ## Value
 
 table with t-scores attached to raw swan values
+
+## Examples
+
+``` r
+score_swan(df = validate_data)
+#> Error: object 'validate_data' not found
+score_swan(df = validate_date, ignore_check = TRUE)
+#> Error: object 'validate_date' not found
+
+
+```

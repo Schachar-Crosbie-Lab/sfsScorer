@@ -18,7 +18,7 @@ clean_file(df = NULL, test = NULL, ignore_check = NULL)
 
 - test:
 
-  Which questionnaire are we running#'
+  Which questionnaire are we running
 
 - ignore_check:
 

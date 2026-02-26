@@ -14,9 +14,9 @@ Scale (TOCS), etc.
 
 Useful links:
 
-- <https://github.com/Schachar-Crosbie-Lab/sfsScorer>
+- <https://github.com/jclutton/sfsScorer>
 
-- <https://Schachar-Crosbie-Lab.github.io/sfsScorer/>
+- <https://jclutton.github.io/sfsScorer/>
 
 - Report bugs at <https://github.com/jclutton/sfsScorer/issues>
 
