@@ -61,7 +61,7 @@ csv <- system.file("extdata", "sample_swan.csv", package = "sfsScorer")
 scores_csv <- score_swan(file = csv)
 
 # Data are validated by default
- df_mod <- df |>
+ df_mod <- random_data |> 
    dplyr::mutate(swan1 = 6)
  try(scores_csv <- score_swan(df = df_mod))
  
