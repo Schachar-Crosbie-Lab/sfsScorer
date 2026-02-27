@@ -100,8 +100,8 @@ score_tocs2 <- function(df = NULL, file = FALSE, output_folder = NULL,
 
   # Print a summary in the console
   cli::cli_alert_success(paste0("The model scored ",sum(!is.na(score$tocs_tscores))," observations."))
-  if(sum(score$tocs_miss > 0)){
-    cli::cli_alert_warning(paste0(sum(score$tocs_miss > 0)," observations were not scored due to excessive missingness. ",
+  if(sum(score$tocs_miss > max_missing)){
+    cli::cli_alert_warning(paste0(sum(score$tocs_miss > max_missing)," observations were not scored due to excessive missingness. ",
                                 ifelse(max_missing == 0, '0 questions are allowed to be missing.',
                                        paste0('The allowed missingness was changed to ',max_missing,'. We recommend not allowing any missingess'))))
   }
