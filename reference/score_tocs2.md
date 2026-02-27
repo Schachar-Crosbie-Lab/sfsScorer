@@ -9,7 +9,13 @@ assessment](https://pubmed.ncbi.nlm.nih.gov/27015722/)
 ## Usage
 
 ``` r
-score_tocs2(df = NULL, file = FALSE, output_folder = NULL, max_missing = 0)
+score_tocs2(
+  df = NULL,
+  file = FALSE,
+  output_folder = NULL,
+  max_missing = 0,
+  ignore_check = FALSE
+)
 ```
 
 ## Arguments
@@ -23,21 +29,15 @@ score_tocs2(df = NULL, file = FALSE, output_folder = NULL, max_missing = 0)
 
   If you prefer scoring a spreadsheet...
 
-  1.  TRUE - This will pop-up a finder to allow you select a file
+  1.  Change to `TRUE` to pop-up a finder to allow you select a file.
+      Alternatively, leave df and file empty to pop-up a finder.
 
-  2.  Specify a pathway
+  2.  Or specify a pathway
 
 - output_folder:
 
-  Output file pathway
-
-  1.  Leave blank - This will output a csv file with the t-scores to
-      your working directory
-
-  2.  Specify a pathway - This will output a csv file to the specified
-      pathway
-
-  3.  Set to `NULL` - This will not output a csv file
+  Optional, output file pathway. Defauts to `NULL`. Specify a pathway to
+  output a csv file.
 
 - max_missing:
 
@@ -47,6 +47,64 @@ score_tocs2(df = NULL, file = FALSE, output_folder = NULL, max_missing = 0)
   use a prorated score to generate t-scores. Please be aware that
   missingness can induce issues when analyzing.
 
+- ignore_check:
+
+  Data are validated to look for missing or improperly formatted values
+  before scoring. Errors are thrown when data aren't valid; however,
+  this can cause issues in real data sets where data vary for good
+  reasons. To skip the validation process, set ignore_check to `TRUE`.
+  NAs will be returned where data are invalid
+
 ## Value
 
 table with t-scores attached to raw swan values
+
+## Examples
+
+``` r
+# Read in the file of scores
+# This is an example file
+csv <- system.file("extdata", "sample_tocs.csv", package = "sfsScorer")
+
+# Score via the file parameter
+scores_csv <- score_tocs2(file = csv)
+#> ✔ The model scored 5 observations.
+#> # A tibble: 4 × 6
+#> # Groups:   gender, youth [4]
+#>   gender youth p_respondent     n  mean    sd
+#>    <int> <dbl>        <int> <int> <dbl> <dbl>
+#> 1      1     0            1     2  57.1  2.83
+#> 2      1     1            0     1  49.9 NA   
+#> 3      2     0            1     1  60.4 NA   
+#> 4      2     1            1     1  56.2 NA   
+
+# Score via the df paramter
+df <- rio::import(csv)
+scores_csv <- score_tocs2(df = df)
+#> ✔ The model scored 5 observations.
+#> # A tibble: 4 × 6
+#> # Groups:   gender, youth [4]
+#>   gender youth p_respondent     n  mean    sd
+#>    <int> <dbl>        <int> <int> <dbl> <dbl>
+#> 1      1     0            1     2  57.1  2.83
+#> 2      1     1            0     1  49.9 NA   
+#> 3      2     0            1     1  60.4 NA   
+#> 4      2     1            1     1  56.2 NA   
+
+# The data are automatically validated.
+# To ignore the validation errors and introduce `NA`, set `ignore_check = TRUE`
+df_mod <- df |>
+  dplyr::mutate(p_respondent = 2)
+scores_csv <- score_tocs2(df = df_mod, ignore_check = TRUE)
+#> ! 5 non-valid p_respondent values were changed to NA. This could impact scores. 
+#> The only valid p_respondent values are 1 and 0. To correct, review the following rows before re-running - 1, 2, 3, 4, and 5
+#> ✔ The model scored 0 observations.
+#> # A tibble: 4 × 6
+#> # Groups:   gender, youth [4]
+#>   gender youth p_respondent     n  mean    sd
+#>    <int> <dbl>        <dbl> <int> <dbl> <dbl>
+#> 1      1     0           NA     2   NaN    NA
+#> 2      1     1           NA     1   NaN    NA
+#> 3      2     0           NA     1   NaN    NA
+#> 4      2     1           NA     1   NaN    NA
+```
