@@ -106,13 +106,14 @@ score_tocs2 <- function(df = NULL, file = FALSE, output_folder = NULL,
                                        paste0('The allowed missingness was changed to ',max_missing,'. We recommend not allowing any missingess'))))
   }
 
-  print(
-    score |>
-      dplyr::group_by(.data$gender, .data$youth, .data$p_respondent) |>
-      dplyr::summarise(n = dplyr::n(),
-                       mean = mean(.data$tocs_gender_tscores, na.rm = T),
-                       sd = stats::sd(.data$tocs_gender_tscores, na.rm = T))
-  )
+  # Hiding summary for now
+  # print(
+  #   score |>
+  #     dplyr::group_by(.data$gender, .data$youth, .data$p_respondent) |>
+  #     dplyr::summarise(n = dplyr::n(),
+  #                      mean = mean(.data$tocs_gender_tscores, na.rm = T),
+  #                      sd = stats::sd(.data$tocs_gender_tscores, na.rm = T))
+  # )
 
   score <- score |>
     dplyr::select(-c('age18','youth','female'))

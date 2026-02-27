@@ -48,7 +48,6 @@ library(sfsScorer)
 #' All tocs questions 1-24 as tocs1...tocs24
 head(random_data, 1)
 
-
 # Score from a data frame
 scores <- score_tocs2(df = random_data)
 
@@ -56,6 +55,14 @@ scores <- score_tocs2(df = random_data)
 # Score from a a csv or xlsx file
 tocs_csv <- system.file("extdata", "sample_tocs.csv", package = "sfsScorer")
 scores_csv <- score_tocs2(file = tocs_csv)
+
+# Data are validated by default
+ df_mod <- df |>
+   dplyr::mutate(tocs1 = 6)
+ try(scores_csv <- score_tocs2(df = df_mod))
+ 
+ # To ignore validation and introduce NAs use `ignore_check = TRUE`
+ scores_csv <- score_tocs2(df = df_mod, ignore_check = TRUE)
 
 ```
 

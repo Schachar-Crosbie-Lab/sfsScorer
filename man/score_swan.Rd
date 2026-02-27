@@ -40,10 +40,12 @@ scores_csv <- score_swan(file = csv)
 df <- rio::import(csv)
 scores_csv <- score_swan(df = df)
 
-# The data are automatically validated.
-# To ignore the validation errors and introduce `NA`, set `ignore_check = TRUE`
+# Data will be validated
 df_mod <- df |>
   dplyr::mutate(swan1 = 6)
+try(scores_csv <- score_swan(df = df_mod))
+
+# To ignore the validation errors and introduce `NA`, set `ignore_check = TRUE`
 scores_csv <- score_swan(df = df_mod, ignore_check = TRUE)
 
 

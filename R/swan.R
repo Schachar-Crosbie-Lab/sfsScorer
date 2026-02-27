@@ -56,10 +56,12 @@
 #' df <- rio::import(csv)
 #' scores_csv <- score_swan(df = df)
 #'
-#' # The data are automatically validated.
-#' # To ignore the validation errors and introduce `NA`, set `ignore_check = TRUE`
+#' # Data will be validated
 #' df_mod <- df |>
 #'   dplyr::mutate(swan1 = 6)
+#' try(scores_csv <- score_swan(df = df_mod))
+#'
+#' # To ignore the validation errors and introduce `NA`, set `ignore_check = TRUE`
 #' scores_csv <- score_swan(df = df_mod, ignore_check = TRUE)
 #'
 #'
@@ -104,13 +106,14 @@ score_swan <- function(df = NULL, file = FALSE, output_folder = NULL, ignore_che
                                   "Only one question can be missing per subdomain."))
   }
 
-  print(
-    score |>
-      dplyr::group_by(.data$gender, .data$youth, .data$p_respondent) |>
-      dplyr::summarise(n = dplyr::n(),
-                       mean = mean(.data$swan_tot_gender_tscores, na.rm = T),
-                       sd = stats::sd(.data$swan_tot_gender_tscores, na.rm = T))
-  )
+  # Hiding summary for now
+  # print(
+  #   score |>
+  #     dplyr::group_by(.data$gender, .data$youth, .data$p_respondent) |>
+  #     dplyr::summarise(n = dplyr::n(),
+  #                      mean = mean(.data$swan_tot_gender_tscores, na.rm = T),
+  #                      sd = stats::sd(.data$swan_tot_gender_tscores, na.rm = T))
+  # )
 
   score <- score |>
     dplyr::select(-c('age18','youth','female'))
